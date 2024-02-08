@@ -69,3 +69,28 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                                        password=password,
                                                        database=database)
     return my_db
+
+
+def main() -> None:
+    """return rows of users from db with sensitive data hidden"""
+    my_db = get_db()
+    cursor = my_db.cursor()
+    cursor.execute("SELECT * FROM users;")
+
+    titles = []
+    for title in cursor.description:
+        titles.append(title[0])
+
+    logger = get_logger()
+
+    for row in cursor:
+        user_info = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, titles))
+        logger.info(user_info)
+
+    cursor.close()
+    my_db.close()
+
+
+if __name__ == "__main__":
+    """when file is executed main will run"""
+    main()
