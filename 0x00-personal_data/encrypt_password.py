@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """returns an encripted password"""
 
-from bcrypt import hashpw, gensalt
-from typing import ByteString
+import bcrypt
 
 
-def hash_password(password: str) -> ByteString:
-    """takes a  string password, hashes it and return a byte string"""
-    encoded_password = password.encode("utf-8")
-    hash_password = hashpw(encoded_password, gensalt())
+def hash_password(password: str) -> bytes:
+    """return a salted, harshed pasword that is byte string"""
+    encoded_password = password.encode()
+    hash_password = bcrypt.hashpw(encoded_password, bcrypt.gensalt())
     return hash_password
