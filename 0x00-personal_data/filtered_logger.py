@@ -13,7 +13,7 @@ from typing import List
 import re
 
 
-def filter_datum(field: List[str], r: str, msg: str, sep: str) -> str:
+def filter_datum(fields: List[str], r: str, msg: str, sep: str) -> str:
     """return a message with important info obfuscated"""
-    regex = re.compile(f'("|".join(field))=([^{sep}]*)')
-    return regex.sub(fr'\1={r}', msg)
+    return re.sub(fr'({"|".join(fields)})=[^{sep}]*',
+                  lambda x: x.group(1) + "=" + r, msg)
