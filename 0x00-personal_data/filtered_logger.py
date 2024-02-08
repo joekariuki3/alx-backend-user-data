@@ -4,6 +4,8 @@
 from typing import List
 import re
 import logging
+import os
+import mysql.connector
 
 
 class RedactingFormatter(logging.Formatter):
@@ -48,8 +50,22 @@ def get_logger() -> logging.Logger:
     target_handler.setLevel(logging.INFO)
 
     formatter = RedactingFormatter(list(PII_FIELDS))
-    target_handle.setFormatter(formatter)
+    target_handler.setFormatter(formatter)
 
     logger.addHandler(target_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """returns a connection object to database"""
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST")
+    database = os.environ.get("PERSONAL_DATA_DB_NAME")
+
+    my_db = mysql.connector.connection.MySQLConnection(host=host,
+                                                       user=username,
+                                                       password=password,
+                                                       database=database)
+    return my_db
