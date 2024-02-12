@@ -33,3 +33,18 @@ class BasicAuth(Auth):
         except base64.binascii.Error:
             return None
         return clean_string
+
+    def extract_user_credentials(self,
+                                 decoded_base64_authorization_header: str) -> (str, str):
+        """Returns a tuple with two sting"""
+        dbah = decoded_base64_authorization_header
+        if not dbah or not isinstance(dbah, str):
+            return (None, None)
+        if ":" not in dbah:
+            return (None, None)
+        dbah_list = dbah.split(":")
+        if len(dbah_list) < 2:
+            return (None, None)
+        email = dbah_list[0]
+        password = dbah_list[1]
+        return (email, password)
