@@ -11,10 +11,16 @@ class Auth:
         """initilization of Auth class"""
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Returns True:
-                if Check path need authentication
+        """ Returns True:
+                if path not in ecluded_paths
            else:
-               returns False"""
+               returns False
+        """
+        if path:
+            if path[-1] != "/":
+                path = path + "/"
+        if not excluded_paths or not path or path not in excluded_paths:
+            return True
         return False
 
     def authorization_header(self, request=None) -> str:
