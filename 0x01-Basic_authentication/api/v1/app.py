@@ -16,6 +16,7 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 auth_type = os.getenv("AUTH_TYPE")
+
 if auth_type:
     if auth_type == "basic_auth":
         auth = BasicAuth()
@@ -49,7 +50,8 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ Unauthorized handler"""
+    """ handles Unauthorized access to resources
+    """
     return jsonify({"error": "Unauthorized"}), 401
 
 
