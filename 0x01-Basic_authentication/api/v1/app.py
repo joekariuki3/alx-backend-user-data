@@ -22,10 +22,13 @@ if auth_type:
     else:
         auth = Auth()
 
+
 @app.before_request
 def beforeRequest():
     """ check if path requirs authentication"""
-    excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    excluded_paths = ['/api/v1/status/',
+                      '/api/v1/unauthorized/',
+                      '/api/v1/forbidden/']
     if auth:
         must_authenticate = auth.require_auth(request.path, excluded_paths)
         if must_authenticate:
@@ -34,7 +37,6 @@ def beforeRequest():
                 abort(401)
             user = auth.current_user(request)
             if not user:
-                print("user not found")
                 abort(403)
 
 
