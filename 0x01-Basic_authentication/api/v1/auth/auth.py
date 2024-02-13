@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Auth class """
+""" Auth class implementation """
 
 from flask import request
 from typing import List, TypeVar
@@ -34,5 +34,5 @@ class Auth:
         return value
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """"""
+        """returns a user or None"""
         return None

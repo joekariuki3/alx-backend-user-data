@@ -1,5 +1,5 @@
 #!/usr/bin/env
-"""BasicAuth class"""
+"""BasicAuth class implementation"""
 
 from typing import TypeVar
 from api.v1.auth.auth import Auth
@@ -25,7 +25,8 @@ class BasicAuth(Auth):
         return ah_list[1]
 
     def decode_base64_authorization_header(self,
-                                           base64_authorization_header: str) -> str:
+                                           base64_authorization_header: str
+                                           ) -> str:
         """Returns a base64 decoded string or None"""
         bah = base64_authorization_header
         if not bah or not isinstance(bah, str):
@@ -38,7 +39,8 @@ class BasicAuth(Auth):
         return clean_string
 
     def extract_user_credentials(self,
-                                 decoded_base64_authorization_header: str) -> (str, str):
+                                 decoded_base64_authorization_header: str
+                                 ) -> (str, str):
         """Returns a tuple with two sting"""
         dbah = decoded_base64_authorization_header
         if not dbah or not isinstance(dbah, str):
