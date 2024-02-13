@@ -26,7 +26,8 @@ if auth_type:
 
 @app.before_request
 def beforeRequest():
-    """ check if path requirs authentication"""
+    """check if path requirs authentication
+    """
     excluded_paths = ['/api/v1/status/',
                       '/api/v1/unauthorized/',
                       '/api/v1/forbidden/']

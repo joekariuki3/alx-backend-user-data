@@ -41,7 +41,7 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(self,
                                  decoded_base64_authorization_header: str
-                                 ) -> Tuple[str, str]:
+                                 ) -> (str, str):
         """Returns a tuple with two sting
         """
         dbah = decoded_base64_authorization_header
