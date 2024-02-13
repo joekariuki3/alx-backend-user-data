@@ -2,10 +2,10 @@
 """BasicAuth class module
 """
 
+import base64
 from typing import TypeVar, Tuple
 from .auth import Auth
 from models.user import User
-import base64
 
 
 class BasicAuth(Auth):
