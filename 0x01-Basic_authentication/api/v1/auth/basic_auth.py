@@ -51,15 +51,19 @@ class BasicAuth(Auth):
         password = dbah_list[1]
         return (email, password)
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(self,
+                                     user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
         """Returns a user or None"""
         if not user_email or not isinstance(user_email, str):
             return None
         if not user_pwd or not isinstance(user_pwd, str):
             return None
-        result, key_found = User.search(User, email=user_email)
-        if not result or not key_found:
+        data = {'email': user_email}
+        result = User.search(data)
+        if not result:
             return None
+        user = result[0]
         if user.is_valid_password(user_pwd):
             return user
         return None
