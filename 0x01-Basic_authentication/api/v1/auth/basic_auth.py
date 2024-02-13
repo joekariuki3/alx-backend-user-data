@@ -49,11 +49,13 @@ class BasicAuth(Auth):
             return (None, None)
         if ":" not in dbah:
             return (None, None)
-        dbah_list = dbah.split(":")
-        if len(dbah_list) < 2:
-            return (None, None)
-        email = dbah_list[0]
-        password = dbah_list[1]
+        email = ""
+        for index, char in enumerate(dbah):
+            if char == ":":
+                break
+            else:
+                email = email + char
+        password = dbah[index + 1:]
         return (email, password)
 
     def user_object_from_credentials(self,
