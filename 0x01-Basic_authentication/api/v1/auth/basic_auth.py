@@ -3,7 +3,7 @@
 """
 
 from typing import TypeVar, Tuple
-from api.v1.auth.auth import Auth
+from .auth import Auth
 from models.user import User
 import base64
 
