@@ -56,10 +56,9 @@ def unauthorized(error) -> str:
 
 
 @app.errorhandler(403)
-def unauthenticated(error) -> str:
-    """ Unauthenticated handler
-    authenticated but not allowed to acces the specific
-    resource"""
+def forbidden(error) -> str:
+    """forbidden handler
+    """
     return jsonify({"error": "Forbidden"}), 403
 
 
