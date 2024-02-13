@@ -11,6 +11,7 @@ class BasicAuth(Auth):
 
     def __init__(self):
         """initilize BasicAuth"""
+        super()
 
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
@@ -67,3 +68,24 @@ class BasicAuth(Auth):
         if user.is_valid_password(user_pwd):
             return user
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Returns a user or None"""
+        if not request:
+            return None
+        auth_header = super().authorization_header(request)
+        if not auth_header:
+            return None
+        base64_string = self.extract_base64_authorization_header(request)
+        if not base64_string:
+            return None
+        utf8_string = self.decode_base64_authorization_header(base64_string)
+        if not utf8_string:
+            return None
+        email, password = self.extract_user_credentials(utf_string)
+        if not email or not password:
+            return None
+        user = self.user_object_from_credentials(email, password)
+        if not user:
+            return None
+        return user

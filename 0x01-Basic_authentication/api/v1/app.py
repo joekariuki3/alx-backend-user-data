@@ -19,7 +19,8 @@ auth_type = os.getenv("AUTH_TYPE")
 if auth_type:
     if auth_type == "basic_auth":
         auth = BasicAuth()
-    auth = Auth()
+    else:
+        auth = Auth()
 
 @app.before_request
 def beforeRequest():
@@ -33,6 +34,7 @@ def beforeRequest():
                 abort(401)
             user = auth.current_user(request)
             if not user:
+                print("user not found")
                 abort(403)
 
 
