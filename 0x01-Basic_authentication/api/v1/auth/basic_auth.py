@@ -1,21 +1,21 @@
 #!/usr/bin/env
-"""BasicAuth class implementation"""
+"""BasicAuth class module
+"""
 
-from typing import TypeVar
+from typing import TypeVar, Tuple
 from api.v1.auth.auth import Auth
 from models.user import User
 import base64
 
 
 class BasicAuth(Auth):
-
-    def __init__(self):
-        """initilize BasicAuth"""
-        super()
+    """Basic authentication class
+    """
 
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
-        """returns base64 auth value or None"""
+        """returns base64 auth value or None
+        """
         ah = authorization_header
         if not ah or not isinstance(ah, str):
             return None
@@ -27,7 +27,8 @@ class BasicAuth(Auth):
     def decode_base64_authorization_header(self,
                                            base64_authorization_header: str
                                            ) -> str:
-        """Returns a base64 decoded string or None"""
+        """Returns a base64 decoded string or None
+        """
         bah = base64_authorization_header
         if not bah or not isinstance(bah, str):
             return None
@@ -40,8 +41,9 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(self,
                                  decoded_base64_authorization_header: str
-                                 ) -> (str, str):
-        """Returns a tuple with two sting"""
+                                 ) -> Tuple[str, str]:
+        """Returns a tuple with two sting
+        """
         dbah = decoded_base64_authorization_header
         if not dbah or not isinstance(dbah, str):
             return (None, None)
@@ -57,7 +59,8 @@ class BasicAuth(Auth):
     def user_object_from_credentials(self,
                                      user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
-        """Returns a user or None"""
+        """Returns a user or None
+        """
         if not user_email or not isinstance(user_email, str):
             return None
         if not user_pwd or not isinstance(user_pwd, str):
@@ -72,10 +75,11 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Returns a user or None"""
+        """Returns a user or None
+        """
         if not request:
             return None
-        auth_header = super().authorization_header(request)
+        auth_header = self.authorization_header(request)
         if not auth_header:
             return None
         base64_string = self.extract_base64_authorization_header(request)

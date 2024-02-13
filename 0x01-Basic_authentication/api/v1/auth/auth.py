@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-""" Auth class implementation """
+"""Auth class implementation
+"""
 
 from flask import request
 from typing import List, TypeVar
 
 
 class Auth:
-
-    def __init__(self):
-        """initilization of Auth class"""
+    """Authentication class
+    """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ Returns True:
@@ -24,7 +24,8 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """Returns the authorization header if it has value"""
+        """Returns the authorization header if it has value
+        """
         if not request:
             return None
         key = 'Authorization'
@@ -34,5 +35,6 @@ class Auth:
         return value
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """returns a user or None"""
+        """returns a user or None
+        """
         return None
