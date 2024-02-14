@@ -89,13 +89,13 @@ class BasicAuth(Auth):
         auth_header = self.authorization_header(request)
         if not auth_header:
             return None
-        base64_string = self.extract_base64_authorization_header(request)
+        base64_string = self.extract_base64_authorization_header(auth_header)
         if not base64_string:
             return None
         utf8_string = self.decode_base64_authorization_header(base64_string)
         if not utf8_string:
             return None
-        email, password = self.extract_user_credentials(utf_string)
+        email, password = self.extract_user_credentials(utf8_string)
         if not email or not password:
             return None
         user = self.user_object_from_credentials(email, password)
