@@ -4,6 +4,7 @@
 
 from .auth import Auth
 import uuid
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -33,3 +34,19 @@ class SessionAuth(Auth):
             return None
         user_id = self.user_id_by_session_id.get(session_id)
         return user_id
+
+    def current_user(self, request=None):
+        """eturns a user based on cookie value
+        """
+        if not request:
+            return None
+        session_id = self.session_cookie(request)
+        if not session_id:
+            return None
+        user_id = self.user_id_by_session_id.get(session_id)
+        if not user_id:
+            return None
+        user = User.get(user_id)
+        if not user:
+            return None
+        return user
