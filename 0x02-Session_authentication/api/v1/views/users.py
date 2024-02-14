@@ -133,4 +133,5 @@ def update_user(user_id: str = None) -> str:
 def me():
     """return authenticated User
     """
-    return request.current_user
+    current_user = request.current_user.to_json()
+    return current_user
