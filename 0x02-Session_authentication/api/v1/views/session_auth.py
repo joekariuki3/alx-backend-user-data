@@ -33,7 +33,8 @@ def log_in():
         error_data = {"error": "no user found for this email"}
         return jsonify(error_data), 404
     # check if password is valid
-    if not user.is_valid_password(password):
+    valid_password = user.is_valid_password(password)
+    if not valid_password:
         error_data = {"error": "wrong password"}
         return jsonify(error_data), 401
     # creat a sessionID for the user ID
@@ -50,7 +51,8 @@ def log_in():
                  methods=['DELETE'],
                  strict_slashes=False)
 def log_out():
-    """logs out the current user"""
+    """logs out the current user
+    """
     from api.v1.app import auth
     is_logout = auth.destroy_session(request)
     if is_logout is False:
