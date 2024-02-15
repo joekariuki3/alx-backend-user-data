@@ -35,10 +35,12 @@ def beforeRequest():
                       '/api/v1/forbidden/',
                       '/api/v1/auth_session/login/']
     if auth:
+        """
         if auth.authorization_header(request) and auth.session_cookie(request):
             return None
         else:
             abort(401)
+        """
         must_authenticate = auth.require_auth(request.path, excluded_paths)
         if must_authenticate:
             auth_string = auth.authorization_header(request)
