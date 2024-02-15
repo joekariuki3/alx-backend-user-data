@@ -1,5 +1,6 @@
 #!/usr/bin/env pythhon3
-"""SessionExpAuth module implementation"""
+"""SessionExpAuth module implementation
+"""
 
 from api.v1.auth.session_auth import SessionAuth
 from os import getenv
@@ -7,7 +8,8 @@ from datetime import datetime, timedelta
 
 
 class SessionExpAuth(SessionAuth):
-    """SessionExpAuth class implementation"""
+    """SessionExpAuth class implementation
+    """
     def __init__(self):
         session_duration = getenv("SESSION_DURATION")
         if session_duration.isdigit():
@@ -17,7 +19,8 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """creates a session for user_id
-        returns the session_id"""
+        returns the session_id
+        """
         session_id = super().create_session(user_id)
         if not session_id:
             return None
