@@ -44,3 +44,15 @@ def log_in():
     response = make_response(user.to_json())
     response.set_cookie(session_name, session_id)
     return response
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'],
+                 strict_slashes=False)
+def log_out():
+    """logs out the current user"""
+    from api.v1.app import auth
+    is_logout = auth.destroy_session(request)
+    if is_logout is False:
+        abort(404)
+    return jsonify({}), 200
