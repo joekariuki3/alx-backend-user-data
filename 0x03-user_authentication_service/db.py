@@ -61,7 +61,10 @@ class DB:
     def update_user(self, id: int, **kwargs) -> None:
         """updates user with the id passed with values in kwargs
         """
-        user = self.find_user_by(id=id)
+        try:
+            user = self.find_user_by(id=id)
+        except NoResultFound:
+            raise ValueError()
         session = self._session
         for key, value in kwargs.items():
             if not hasattr(User, key):
