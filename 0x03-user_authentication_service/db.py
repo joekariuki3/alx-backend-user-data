@@ -40,4 +40,5 @@ class DB:
             self._session.commit()
         except Exception:
             self._session.rollback()
+            raise
         return new_user
