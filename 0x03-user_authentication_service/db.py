@@ -34,7 +34,9 @@ class DB:
         """saves user
         Returns user object
         """
-        new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
-        return new_user
+        if email and hashed_password:
+            new_user = User(email=email, hashed_password=hashed_password)
+            self._session.add(new_user)
+            self._session.commit()
+            return new_user
+        return None
