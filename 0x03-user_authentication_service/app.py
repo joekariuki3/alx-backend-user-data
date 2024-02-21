@@ -49,7 +49,7 @@ def login() -> str:
 def logout() -> str:
     """Destroys the session
     """
-    session_id = request.cookies.get('session_id')
+    session_id = request.cookies.get("session_id")
     try:
         user = AUTH.find_user_by(session_id=session_id)
         AUTH.destroy_session(user.id)
