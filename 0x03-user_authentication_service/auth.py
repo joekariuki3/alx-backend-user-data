@@ -17,18 +17,19 @@ def _hash_password(password: str) -> bytes:
     return hash_password
 
 
+def _generate_uuid() -> str:
+    """Return a uniq string id
+    """
+    new_id = str(uuid.uuid4())
+    return new_id
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
 
     def __init__(self):
         self._db = DB()
-
-    def _generate_uuid(self) -> str:
-        """Return a uniq string id
-        """
-        new_id = str(uuid.uuid4())
-        return new_id
 
     def register_user(self, email: str, password: str) -> User:
         """ creates a user with email as email and password as password
