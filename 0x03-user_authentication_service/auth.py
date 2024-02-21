@@ -24,6 +24,12 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
+    def _generate_uuid(self) -> str:
+        """Return a uniq string id
+        """
+        new_id = str(uuid.uuid4())
+        return new_id
+
     def register_user(self, email: str, password: str) -> User:
         """ creates a user with email as email and password as password
         Returns user object
@@ -45,10 +51,3 @@ class Auth:
             return bcrypt.checkpw(password.encode(),  user.hashed_password)
         except NoResultFound:
             return False
-
-    @property
-    def _generate_uuid(self) -> str:
-        """Return a uniq string id
-        """
-        new_id = str(uuid.uuid4())
-        return new_id
