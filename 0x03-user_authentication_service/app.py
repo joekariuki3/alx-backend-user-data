@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Flask app"""
 from auth import Auth
-from flask import Flask, jsonify, request, abort, make_response, redirect
+from flask import (Flask, jsonify,
+                   request, abort,
+                   make_response,
+                   redirect, url_for)
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -53,7 +56,7 @@ def logout() -> str:
     try:
         user = AUTH.find_user_by(session_id=session_id)
         AUTH.destroy_session(user.id)
-        return redirect("/")
+        return redirect(url_for('home'))
     except NoResultFound:
         abort(403)
 
