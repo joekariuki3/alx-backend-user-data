@@ -4,7 +4,7 @@ from auth import Auth
 from flask import (Flask, jsonify,
                    request, abort,
                    make_response,
-                   redirect, url_for)
+                   redirect)
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -53,12 +53,11 @@ def logout() -> str:
     """Destroys the session
     """
     session_id = request.cookies.get("session_id")
-    try:
-        user = AUTH.find_user_by(session_id=session_id)
-        AUTH.destroy_session(user.id)
-        return redirect(url_for('home'))
-    except NoResultFound:
+    user = AUTH.get_user_from_session_id(session_id=session_id)
+    if not user:
         abort(403)
+    AUTH.destroy_session(user.id)
+    return redirect('/')
 
 
 if __name__ == '__main__':
