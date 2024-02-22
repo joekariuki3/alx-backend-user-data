@@ -96,7 +96,7 @@ def update_password() -> str:
     if not (email and reset_token and new_password):
         abort(403)
     try:
-        AUTH.update_password(reset_token, password)
+        AUTH.update_password(reset_token, new_password)
         message = {"email": email, "message": "Password updated"}
         return jsonify(message), 200
     except Exception:
