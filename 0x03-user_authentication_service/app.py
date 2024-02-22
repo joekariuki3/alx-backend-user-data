@@ -95,13 +95,11 @@ def update_password() -> str:
     new_password = request.form.get('new_password')
     if not (email and reset_token and new_password):
         abort(403)
-    if not isinstance(reset_token, str):
-        abort(403)
     try:
         AUTH.update_password(reset_token, password)
         message = {"email": email, "message": "Password updated"}
         return jsonify(message), 200
-    except Exception:
+    except ValueError:
         abort(403)
 
 
