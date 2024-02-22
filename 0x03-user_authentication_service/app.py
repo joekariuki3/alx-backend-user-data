@@ -93,6 +93,8 @@ def update_password() -> str:
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
+    if not (email and reset_token and new_password):
+        abort(403)
     try:
         AUTH.update_password(reset_token, password)
         message = {"email": email, "message": "Password updated"}
